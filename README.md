@@ -1,13 +1,13 @@
-# roblox-lua-sprint-system
-### 🔎 description:
+# 🔎 roblox-lua-sprint-system
+### description:
 
 This Lua code uses **delta time** to calculate the sprint duration.
 
 ---
 
-# Installation
+# 🔧 Installation
 
-### 🔧 For add in your game:
+### For add in your game:
 
 1. **Firts folder:** In ReplicatedStorage create Folder and name it "Systems"
 
