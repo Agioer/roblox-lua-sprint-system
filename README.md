@@ -28,3 +28,16 @@ This system is built as a **ModuleScript**, which ensures that the sprint logic 
     * **Exhaustion Penalty:** If stamina hits 0%, the `slowRegenTime` delay is triggered before recovery starts.
 * **Dynamic Speed States:** Manages different speeds for walking, running, and exhaustion (SlowSpeed).
 * **Optimization:** Includes a toggleable debug mode to keep the game running smoothly.
+
+---
+
+### ⚙️ Configuration Parameters
+
+| Parameter | Description |
+| :--- | :--- |
+| **`stamina`** | The total amount of energy available. |
+| **`regeneration`** | Recovery rate when stamina is above 0. |
+| **`slowRegenTime`** | Penalty delay after total stamina depletion. |
+| **`runSpeed`** | Movement speed while sprinting. |
+| **`slowSpeed`** | Penalty speed when the player is exhausted. |
+| **`viewOutput`** | Debug mode. **Set to false** for better performance. |
