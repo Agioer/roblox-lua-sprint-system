@@ -41,3 +41,6 @@ This system is built as a **ModuleScript**, which ensures that the sprint logic 
 | **`runSpeed`** | Movement speed while sprinting. |
 | **`slowSpeed`** | Penalty speed when the player is exhausted. |
 | **`viewOutput`** | Debug mode. **Set to false** for better performance. |
+
+---
+# ✨ Extra
