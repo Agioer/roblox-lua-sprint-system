@@ -51,4 +51,4 @@ This system is built as a **ModuleScript**, which ensures that the sprint logic 
 > If you plan to move the **SprintSystem** script to `StarterPlayerScripts`, please note that you will need to modify much more of the code than just line 4 for it to function correctly (" **Much More** " I mean one Line).
 
 ## Links
-Have a question or want to share your ideas? Join the conversation in our [Discussions]() tab!
+Have a question or want to share your ideas? Join the conversation in our [Discussions](https://github.com/Agioer/roblox-lua-sprint-system/discussions) tab!
