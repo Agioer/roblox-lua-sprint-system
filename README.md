@@ -45,5 +45,5 @@ This system is built as a **ModuleScript**, which ensures that the sprint logic 
 ---
 # ✨ Extra
 > [!TIP]
-># ✨ Extra
-If you decide to move the **ModuleScript** to a different location, remember to update the path references in **line 4** of the `SprintSystem` script.
+> If you decide to move the **ModuleScript** to a different location, remember to update the path references in **line 4** of the `SprintSystem` script.
+
