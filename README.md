@@ -46,5 +46,6 @@ This system is built as a **ModuleScript**, which ensures that the sprint logic 
 # ✨ Extra
 > [!TIP]
 > If you decide to move the **ModuleScript** to a different location, remember to update the path references in **line 4** of the `SprintSystem` script.
+
 > [!WARNING]
 > If you plan to move the **SprintSystem** script to `StarterPlayerScripts`, please note that you will need to modify much more of the code than just line 4 for it to function correctly.
