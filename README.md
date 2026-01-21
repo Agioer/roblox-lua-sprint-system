@@ -1,5 +1,5 @@
 # roblox-lua-sprint-system
-🔎 description:
+### 🔎 description:
 
 This Lua code uses delta time to calculate the sprint duration.
 
