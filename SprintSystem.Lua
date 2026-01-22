@@ -1,67 +1,78 @@
-local regeneration = sprintSystemsModule["regeneration"] -- regeneration
-local slowRegeneration = stamina / sprintSystemsModule["slowRegenTime"]
-local RUNTIME = sprintSystemsModule["RUNTIME"] -- Runtime
-local staminaPerSecond = stamina / RUNTIME -- Stamina Per Second
+--// Services
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
 
-local Character = game.Players.LocalPlayer.Character -- Get the Character
-local Humanoid = Character:WaitForChild("Humanoid") -- Get the Humanoid
+player.CharacterAdded:Connect(function(char)
+	character = char
+	humanoid = char:WaitForChild("Humanoid")
+end)
 
-local function  Run(key) -- Check Running
-	if key.KeyCode == Enum.KeyCode.LeftShift and stamina > 0 then
-		Running = true
-		if sprintSystemsModule["viewOutpot"] == true then print("Running") end
+local regenRate = sprintSystemsModule.regeneration
+local slowRegenTime = sprintSystemsModule.slowRegenTime
+local runtime = sprintSystemsModule.RUNTIME
+
+local walkSpeed = sprintSystemsModule.speed
+local runSpeed = sprintSystemsModule.runSpeed
+local slowSpeed = sprintSystemsModule.slowSpeed
+
+local MAX_STAMINA = 100
+local stamina = MAX_STAMINA
+
+local staminaDrain = MAX_STAMINA / runtime
+local slowRegen = MAX_STAMINA / slowRegenTime
+
+local running = false
+local exhausted = false
+local currentSpeed = walkSpeed
+
+--// Input
+UserInputService.InputBegan:Connect(function(input, gp)
+	if gp then return end
+	if input.KeyCode == Enum.KeyCode.LeftShift and stamina > 0 then
+		running = true
 	end
-end
+end)
 
-local function StopRun(key) -- Check not Running
-	if key.KeyCode == Enum.KeyCode.LeftShift then
-		Running = false
-		if sprintSystemsModule["viewOutpot"] == true then print("Walking") end
+UserInputService.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		running = false
 	end
-end
-
-
-UserInputService.InputBegan:Connect(Run)
-UserInputService.InputEnded:Connect(StopRun)
+end)
 
 RunService.Heartbeat:Connect(function(dt)
+	local isMoving = humanoid.MoveDirection.Magnitude > 0
 
-	local isMoving = Humanoid.MoveDirection.Magnitude > 0 
-
-	if isMoving and Running == true and stamina > 0 then
-
-		stamina = stamina - (staminaPerSecond * dt)
-		Humanoid.WalkSpeed = sprintSystemsModule["runSpeed"]
+	-- Sprinting
+	if running and isMoving and stamina > 0 then
+		stamina -= staminaDrain * dt
+		currentSpeed = runSpeed
 
 		if stamina <= 0 then
-			StaminaLose = true
+			stamina = 0
+			exhausted = true
+			running = false
 		end
 
-		if stamina < 0 then stamina = 0 end
 	else
-		Running = false
+		-- Regeneration
+		if stamina < MAX_STAMINA then
+			stamina += (exhausted and slowRegen or regenRate) * dt
 
-		if StaminaLose == true then
-			Humanoid.WalkSpeed = sprintSystemsModule["slowSpeed"]
-		else
-			Humanoid.WalkSpeed = sprintSystemsModule["speed"]
-		end
-
-		if stamina < 100 and StaminaLose == false then
-			stamina = stamina + (regeneration * dt)
-			if stamina > 100 then stamina = 100 end
-
-		elseif stamina < 100 and StaminaLose == true then
-			stamina = stamina + (slowRegeneration * dt)
-			if stamina > 100 then 
-				stamina = 100
-				StaminaLose = false
+			if stamina >= MAX_STAMINA then
+				stamina = MAX_STAMINA
+				exhausted = false
 			end
 		end
+
+		currentSpeed = exhausted and slowSpeed or walkSpeed
 	end
-	if sprintSystemsModule["viewOutpot"] == true then
-		print("Stamina: "..stamina)
-		print("Speed: "..Humanoid.WalkSpeed)
+
+	if humanoid.WalkSpeed ~= currentSpeed then
+		humanoid.WalkSpeed = currentSpeed
 	end
 end)
