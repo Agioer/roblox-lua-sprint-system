@@ -11,7 +11,7 @@ This Lua code uses **delta time** to calculate the sprint duration.
 
 1. **Firts folder:** In ReplicatedStorage create Folder and name it "Systems"
 
-2. **Second Folder:** Create another Folder and name it sprintSystems⚙️
+2. **Second Folder:** Create another Folder and name it "sprintSystems"
 
 3. **Add ModuleScript:** Create a new ModuleScript inside that folder and paste this code.
 
